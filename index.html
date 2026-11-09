@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<meta name="referrer" content="no-referrer">
+<title>Mano Derecha</title>
+<style>
+  :root { --bg: #f5f3ee; --card: #ffffff; --fg: #1c1b19; --mut: #6b675f; --line: #e3dfd6; --acc: #1f6f5c; --acc-fg: #ffffff; }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg: #151513; --card: #1f1e1b; --fg: #f1efe9; --mut: #a39f95; --line: #34322d; --acc: #47b394; --acc-fg: #0d1f1a; }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--fg); font: 16px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif; }
+  main { max-width: 460px; margin: 0 auto; padding: 48px 16px; }
+  header { display: flex; align-items: center; gap: 10px; margin-bottom: 20px; }
+  .logo { width: 36px; height: 36px; border-radius: 10px; background: var(--acc); color: var(--acc-fg); display: grid; place-items: center; font-weight: 700; }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 22px 20px; }
+  h1 { font-size: 20px; margin: 0 0 8px; }
+  p { margin: 0; color: var(--mut); }
+  a { color: var(--acc); }
+</style>
+</head>
+<body>
+<main>
+  <header><div class="logo">M</div><b>Mano Derecha</b></header>
+  <div class="card">
+    <h1 id="t">Abriendo tu registro…</h1>
+    <p id="m">Un momento.</p>
+  </div>
+</main>
+<script>
+(async () => {
+  const t = document.getElementById("t"), m = document.getElementById("m");
+  const q = new URLSearchParams(location.search);
+  if (!q.get("inv")) {
+    t.textContent = "Piloto privado";
+    m.textContent = "Mano Derecha está en piloto por invitación. Si te invitaron, abre el enlace que te enviaron.";
+    return;
+  }
+  const falla = () => {
+    t.textContent = "No pudimos abrir tu registro";
+    m.innerHTML = 'Estamos actualizando el servicio. Intenta de nuevo en un par de minutos. <a href="">Reintentar</a>';
+  };
+  for (let i = 0; i < 3; i++) {
+    try {
+      const r = await fetch("servidor.json?t=" + Date.now(), { cache: "no-store" });
+      const { url } = await r.json();
+      if (/^https:\/\/[a-z0-9.-]+$/.test(url)) { location.replace(url + "/" + location.search); return; }
+    } catch (e) {}
+    await new Promise((ok) => setTimeout(ok, 1500));
+  }
+  falla();
+})();
+</script>
+</body>
+</html>

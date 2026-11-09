@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<meta name="referrer" content="no-referrer">
+<title>Mano Derecha</title>
+<style>
+  :root { --bg: #f5f3ee; --fg: #1c1b19; --mut: #6b675f; }
+  @media (prefers-color-scheme: dark) { :root { --bg: #151513; --fg: #f1efe9; --mut: #a39f95; } }
+  body { margin: 0; background: var(--bg); color: var(--fg); font: 16px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif; }
+  main { max-width: 460px; margin: 0 auto; padding: 48px 16px; }
+  p { color: var(--mut); }
+</style>
+</head>
+<body>
+<main>
+  <h1 id="t" style="font-size:20px">Terminando la conexión con Google…</h1>
+  <p id="m">Un momento, no cierres esta página.</p>
+</main>
+<script>
+// Puente: Google vuelve a esta dirección fija y aquí se reenvía la respuesta al servidor actual.
+(async () => {
+  for (let i = 0; i < 3; i++) {
+    try {
+      const r = await fetch("../../servidor.json?t=" + Date.now(), { cache: "no-store" });
+      const { url } = await r.json();
+      if (/^https:\/\/[a-z0-9.-]+$/.test(url)) { location.replace(url + "/google/volver" + location.search); return; }
+    } catch (e) {}
+    await new Promise((ok) => setTimeout(ok, 1500));
+  }
+  document.getElementById("t").textContent = "No pudimos terminar la conexión";
+  document.getElementById("m").textContent = "Vuelve a tu página de registro y toca de nuevo «Conectar Google».";
+})();
+</script>
+</body>
+</html>
