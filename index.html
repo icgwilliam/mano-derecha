@@ -10,6 +10,7 @@
 <meta property="og:title" content="Te invitaron a Mano Derecha">
 <meta property="og:description" content="Tu asistente digital en Telegram: te recuerda, te avisa, guarda tus cosas y te saca trabajo. Toma unos 5 minutos.">
 <meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&display=swap" rel="stylesheet">
 <style>
   :root { --bg: #f5f3ee; --card: #ffffff; --fg: #1c1b19; --mut: #6b675f; --line: #e3dfd6; --acc: #1f6f5c; --acc-fg: #ffffff; }
   @media (prefers-color-scheme: dark) {
@@ -18,17 +19,20 @@
   * { box-sizing: border-box; }
   body { margin: 0; background: var(--bg); color: var(--fg); font: 16px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif; }
   main { max-width: 460px; margin: 0 auto; padding: 48px 16px; }
-  header { display: flex; align-items: center; gap: 10px; margin-bottom: 20px; }
+  header { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 20px; }
   .logo { width: 36px; height: 36px; border-radius: 10px; background: var(--acc); color: var(--acc-fg); display: grid; place-items: center; font-weight: 700; }
   .card { background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 22px 20px; }
   h1 { font-size: 20px; margin: 0 0 8px; }
   p { margin: 0; color: var(--mut); }
   a { color: var(--acc); }
+  .marca { position: relative; display: inline-block; padding: 7px 0 22px; }
+  .marca b { font-size: 18px; }
+  .firma { position: absolute; left: 46%; top: 33px; white-space: nowrap; font-family: "Caveat", "Segoe Script", cursive; font-weight: 600; font-size: 21px; line-height: 1; color: var(--acc); transform: rotate(-7deg); transform-origin: left center; }
 </style>
 </head>
 <body>
 <main>
-  <header><div class="logo">M</div><b>Mano Derecha</b></header>
+  <header><div class="logo">MD</div><div class="marca"><b>Mano Derecha</b><span class="firma">asistente virtual</span></div></header>
   <div class="card">
     <h1 id="t">Abriendo tu registro…</h1>
     <p id="m">Un momento.</p>
