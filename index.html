@@ -55,7 +55,7 @@
     try {
       const r = await fetch("servidor.json?t=" + Date.now(), { cache: "no-store" });
       const { url } = await r.json();
-      if (/^https:\/\/[a-z0-9.-]+$/.test(url)) { location.replace(url + "/" + location.search); return; }
+      if (/^https:\/\/[a-z0-9.-]+$/.test(url)) { location.replace(url + "/" + location.search + location.hash); return; }
     } catch (e) {}
     await new Promise((ok) => setTimeout(ok, 1500));
   }
